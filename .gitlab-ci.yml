@@ -42,13 +42,4 @@ deploy:
 
 
 
-#   script:
-#     - mkdir -p /etc/deploy
-#     - echo $kube_config |base64 -d > $KUBECONFIG
-#     - ls
-#     - pwd
-#     - sed -i "s/IMAGE_TAG/$CI_PIPELINE_ID/g" /builds/itorepo/carli/backend/be-ms-main/deployment/deployment.yaml
-#     - cat /builds/itorepo/carli/backend/be-ms-main/deployment/deployment.yaml
-#     - kubectl apply -f /builds/itorepo/carli/backend/be-ms-main/deployment/deployment.yaml -n getkons-dev
-
 
