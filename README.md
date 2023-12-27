@@ -14,6 +14,17 @@ docker build -t chuck-norris:latest . && docker run -dp 3000:3000
 ```
 
 ### kubernetes with minikube 
+more information is here
+```
+https://minikube.sigs.k8s.io/docs/
+```
+### install minikube
+make sure u already have docker on ur machine
+```
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
+
 ```
 minikube start 
 ```
