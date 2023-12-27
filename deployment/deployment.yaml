@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  be-ms-test
+  labels:
+    app:  be-ms-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: be-ms-test
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  be-ms-test
+    spec:
+      imagePullSecrets:
+      - name: test-pullsecret
+      containers:
+      - name:  be-ms-test
+        image: registry.gitlab.com/bentangpradana/ci-cd-for-kubernetes:IMAGE_TAG
+        resources: {}  
+        ports:
+         - name: http
+           containerPort: 3000
+           protocol: TCP
+
+--- 
+
+kind: Service
+apiVersion: v1
+metadata:
+  name:  be-ms-test
+  labels:
+    app: be-ms-test
+spec:
+  selector:
+    app:  be-ms-test
+  type:  ClusterIP
+  ports:
+    - port: 3000
+      targetPort: http
+      protocol: TCP
+      name: http
