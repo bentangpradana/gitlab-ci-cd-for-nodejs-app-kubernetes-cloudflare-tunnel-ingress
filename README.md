@@ -19,6 +19,7 @@ more information is here
 https://minikube.sigs.k8s.io/docs/
 ```
 ### install minikube
+
 make sure u already have docker on ur machine
 ```
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
