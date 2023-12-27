@@ -1,35 +1,83 @@
-# Random Chuck Norris Jokes
+![image](https://github.com/bentangpradana/gitlab-ci-cd-for-nodejs-app-kubernetes-cloudflare-tunnel-ingress/assets/30104661/10918c29-61ae-4909-8072-28960e366619)
 
-**Tutorial**: [How to Deploy Node.js Applications with Docker](https://betterstack.com/community/guides/scaling-nodejs/dockerize-nodejs/).
 
-![Screenshot or GIF of the application in action](screenshot.png)
+## how to use it 
 
-## 🟢 Prerequisites
+### Docker 
+more information is here 
+``
+https://github.com/betterstack-community/chucknorris
+``
+testing ur image im using chuck-norris boilerplate
+``
+docker build -t chuck-norris:latest . && docker run -dp 3000:3000
+``
 
-You must have Node.js and `npm` installed on your machine. This project was
-built against the following versions:
+### kubernetes with minikube 
+``
+minikube start 
+``
+### deploy with deployment.yaml
+`` 
+kubectl create -f deployment.yaml -n yournamespace
+``
 
-- Node.js v16.14.0.
-- npm v8.3.1.
+## CloudFlare Tunnel using kubernetes
 
-## 📦 Getting started
+### more information is here
+`` 
+https://github.com/STRRL/cloudflare-tunnel-ingress-controller 
+`` 
+### Add helm repo
+`` 
+helm repo add strrl.dev https://helm.strrl.dev
+helm repo update
+``
+### Deploy helm cloudflare tunnel 
 
-- Clone this repo to your machine:
+create  ingress controller
+``
+helm upgrade --install --wait \
+  -n cloudflare-tunnel-ingress-controller --create-namespace \
+  cloudflare-tunnel-ingress-controller \
+  strrl.dev/cloudflare-tunnel-ingress-controller \
+  --set=cloudflare.apiToken="your-cloudflare-token",cloudflare.accountId="your-cloud-flare-account-id",cloudflare.tunnelName="your-favorite-name" 
+  ``
 
-```shell
-git clone https://github.com/betterstack-community/chucknorris
-```
+create ingress for your service make sure u pointing at the same class name
+``
+kubectl -n kubernetes-dashboard \
+  create ingress dashboard-via-cf-tunnel \
+  --rule="www.yourdomain/*=yourservice:80"\
+  --class cloudflare-tunnel
+``
 
-- `cd` into the project folder and run `npm install` to download dependencies.
-- Execute the command below to start the development server:
+## now Gitlab Ci/CD 
+more information is here
+``
+https://www.fosstechnix.com/how-to-install-gitlab-runner-on-centos-rhel-fedora/
+``
+### install gitlab runner
+``
+sudo yum install gitlab-runner
+``
+### cheat sheat
+``
+sudo gitlab-runner start #for starting
+sudo gitlab-runner stop  #for stoping
+sudo gitlab-runner restart #for restarting
+sudo gitlab-runner verify #for verify runner
+``
+### register ur runner using self runner hosted
+``
+on your gitlab page  goto repository > settings > cicd > expand runner
+and then copy gitLab server url and registration token as shown below to ur host runner
+``
 
-```shell
-npm start
-```
 
-- Visit http://localhost:3000 in your browser.
 
-## ⚖ License
 
-The code used in this project and in the linked tutorial are licensed under the
-[Apache License, Version 2.0](LICENSE).
+
+
+
+
