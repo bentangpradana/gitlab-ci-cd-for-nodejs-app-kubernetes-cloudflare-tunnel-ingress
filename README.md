@@ -63,6 +63,11 @@ kubectl -n kubernetes-dashboard \
   --rule="www.yourdomain/*=yourservice:80"\
   --class cloudflare-tunnel
 ```
+### Here the results
+check in here https://chuck.minipc-remote.site/
+```
+![image](https://github.com/bentangpradana/gitlab-ci-cd-for-nodejs-app-kubernetes-cloudflare-tunnel-ingress/assets/30104661/7a63795f-01e9-43fe-9dff-7b3fa1699369)
+```
 
 ## now Gitlab Ci/CD 
 more information is here
